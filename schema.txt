@@ -1,0 +1,4 @@
+User(user_id, username, email, password)
+List(list_id, list_name, user_id)
+Task(task_id, task_name, task_description, list_id, due_date, completion_date, reminder_date, priority, status)
+Subtask(subtask_id, subtask_name, task_id, completion_date, status)
