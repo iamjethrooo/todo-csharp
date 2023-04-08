@@ -1,4 +1,33 @@
 User(user_id, username, email, password)
 List(list_id, list_name, user_id)
 Task(task_id, task_name, task_description, list_id, due_date, completion_date, reminder_date, priority, status)
-Subtask(subtask_id, subtask_name, task_id, completion_date, status)
+
+CREATE TABLE users (
+	id INT UNSIGNED AUTO_INCREMENT,
+	username VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE KEY (email)
+);
+
+CREATE TABLE lists (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	user_id INT UNSIGNED NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (id),
+	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE tasks (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	description TEXT,
+	list_id INT UNSIGNED NOT NULL,
+	due_date DATETIME,
+	completion_date DATETIME,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	status ENUM('not started', 'in progress', 'on hold', 'cancelled') NOT NULL DEFAULT 'not started',
+	PRIMARY KEY (id),
+	FOREIGN KEY (list_id) REFERENCES lists(id) ON DELETE CASCADE
+);
