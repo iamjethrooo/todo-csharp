@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace todo_csharp.Properties
+namespace Todo.Properties
 {
 
 
