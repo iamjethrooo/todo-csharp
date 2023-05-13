@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,16 @@ namespace Todo
             Name = name;
             UserId = userId;
             CreatedAt = createdAt;
+        }
+    }
+
+    public class TaskListDAO
+    {
+        private MySqlConnection connection;
+
+        public TaskListDAO()
+        {
+            connection = new MySqlConnection(new DatabaseConfig().GetConnectionString());
         }
     }
 }

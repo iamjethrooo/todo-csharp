@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace Todo
         private UserDAO userDAO;
         public string Username { get; set; }
         public string Password { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public List<TaskList> TaskLists { get; set; }
 
         public User()
@@ -25,12 +26,18 @@ namespace Todo
             bool success = userDAO.Login(username, password, this);
             if (success)
             {
-                // Console.WriteLine(this.Username + " " + this.Password + " " + this.UserId);
+                Console.WriteLine(this.Username + " " + this.Password + " " + this.UserId);
+                LoadTaskListsFromDatabase();
                 return this;
             } else
             {
                 return null;
             }
+        }
+
+        public void LoadTaskListsFromDatabase()
+        {
+            userDAO.LoadTaskListsFromDatabase(this);
         }
 
     }
@@ -64,7 +71,8 @@ namespace Todo
                 {
                     user.Username = username;
                     user.Password = password;
-                    user.UserId = reader["id"].ToString();
+                    user.UserId = reader.GetInt32(0);
+                    user.TaskLists = new List<TaskList>();
                 }
             }
             catch (Exception ex)
@@ -77,6 +85,33 @@ namespace Todo
             }
 
             return success;
+        }
+
+        public void LoadTaskListsFromDatabase(User user)
+        {
+            try
+            {
+                connection.Open();
+                MySqlCommand cmd = connection.CreateCommand();
+                cmd.CommandText = "SELECT * FROM lists WHERE user_id = @userId";
+                cmd.Parameters.AddWithValue("@userId", user.UserId);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    TaskList taskList = new TaskList(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetDateTime(3));
+                    user.TaskLists.Add(taskList);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+
         }
     }
 }

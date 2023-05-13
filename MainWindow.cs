@@ -27,7 +27,17 @@ namespace Todo
 
         private void addListsToForm(List<TaskList> taskLists)
         {
-
+            taskLists.ForEach(taskList =>
+            {
+                RadioButton radioButton = new RadioButton();
+                radioButton.Font = listAll.Font;
+                radioButton.Margin = listAll.Margin;
+                radioButton.Height = listAll.Height;
+                radioButton.Width = 500;
+                radioButton.Text = taskList.Name;
+                radioButton.CheckedChanged += new System.EventHandler(changeCurrentList_Event);
+                listsPanel.Controls.Add(radioButton);
+            });
         }
 
         private void listAll_CheckedChanged(object sender, EventArgs e)
