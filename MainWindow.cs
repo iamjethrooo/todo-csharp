@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Todo
 {
-    
+
     public partial class MainWindow : Form
     {
         User user;
@@ -30,10 +30,16 @@ namespace Todo
             taskLists.ForEach(taskList =>
             {
                 RadioButton radioButton = new RadioButton();
+                radioButton.FlatAppearance.BorderSize = listAll.FlatAppearance.BorderSize;
+                radioButton.FlatAppearance.CheckedBackColor = listAll.FlatAppearance.CheckedBackColor;
+                radioButton.FlatAppearance.MouseOverBackColor = listAll.FlatAppearance.MouseOverBackColor;
+                radioButton.FlatAppearance.MouseDownBackColor = listAll.FlatAppearance.MouseDownBackColor;
+                radioButton.Appearance = listAll.Appearance;
+                radioButton.FlatStyle = listAll.FlatStyle;
                 radioButton.Font = listAll.Font;
                 radioButton.Margin = listAll.Margin;
                 radioButton.Height = listAll.Height;
-                radioButton.Width = 500;
+                radioButton.Width = 268;
                 radioButton.Text = taskList.Name;
                 radioButton.CheckedChanged += new System.EventHandler(changeCurrentList_Event);
                 listsPanel.Controls.Add(radioButton);
@@ -50,18 +56,33 @@ namespace Todo
             string value = "";
             if (InputBox("Create new list", "Enter list name:", ref value) == DialogResult.OK && !value.Equals(""))
             {
-                RadioButton radioButton = new RadioButton();
-                radioButton.Font = listAll.Font;
-                radioButton.Margin = listAll.Margin;
-                radioButton.Height = listAll.Height;
-                radioButton.Width = 500;
-                radioButton.Text = value;
-                radioButton.CheckedChanged += new System.EventHandler(changeCurrentList_Event);
-                listsPanel.Controls.Add(radioButton);
+                if (!TaskList.Exists(value, user.UserId))
+                {
+                    user.CreateTaskList(value, DateTime.Now);
+                    RadioButton radioButton = new RadioButton();
+                    radioButton.FlatAppearance.BorderSize = listAll.FlatAppearance.BorderSize;
+                    radioButton.FlatAppearance.CheckedBackColor = listAll.FlatAppearance.CheckedBackColor;
+                    radioButton.FlatAppearance.MouseOverBackColor = listAll.FlatAppearance.MouseOverBackColor;
+                    radioButton.FlatAppearance.MouseDownBackColor = listAll.FlatAppearance.MouseDownBackColor;
+                    radioButton.Appearance = Appearance.Button;
+                    radioButton.FlatStyle = listAll.FlatStyle;
+                    radioButton.Font = listAll.Font;
+                    radioButton.Margin = listAll.Margin;
+                    radioButton.Height = listAll.Height;
+                    radioButton.Width = 268;
+                    radioButton.Text = value;
+                    radioButton.CheckedChanged += new System.EventHandler(changeCurrentList_Event);
+                    listsPanel.Controls.Add(radioButton);
+                }
+                else
+                {
+                    MessageBox.Show("List already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-        private void changeCurrentList_Event(object sender, EventArgs e) {
+        private void changeCurrentList_Event(object sender, EventArgs e)
+        {
             selectedListLabel.Text = ((RadioButton)sender).Text;
         }
 

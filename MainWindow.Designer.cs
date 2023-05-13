@@ -93,16 +93,22 @@
             // 
             // listAll
             // 
-            this.listAll.AutoSize = true;
+            this.listAll.Appearance = System.Windows.Forms.Appearance.Button;
+            this.listAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.listAll.FlatAppearance.BorderSize = 0;
+            this.listAll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.listAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.listAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.listAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.listAll.Font = new System.Drawing.Font("Helvetica", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listAll.Location = new System.Drawing.Point(10, 10);
-            this.listAll.Margin = new System.Windows.Forms.Padding(10);
+            this.listAll.Location = new System.Drawing.Point(0, 0);
+            this.listAll.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.listAll.Name = "listAll";
-            this.listAll.Size = new System.Drawing.Size(56, 32);
+            this.listAll.Size = new System.Drawing.Size(268, 38);
             this.listAll.TabIndex = 1;
             this.listAll.TabStop = true;
             this.listAll.Text = "All";
-            this.listAll.UseVisualStyleBackColor = true;
+            this.listAll.UseVisualStyleBackColor = false;
             this.listAll.CheckedChanged += new System.EventHandler(this.listAll_CheckedChanged);
             // 
             // newListButton
@@ -124,6 +130,7 @@
             // mainPanel
             // 
             this.mainPanel.Controls.Add(this.listDetailsPanel);
+            this.mainPanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.mainPanel.Location = new System.Drawing.Point(277, 0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(787, 682);
@@ -169,7 +176,6 @@
             this.titlePanel.ResumeLayout(false);
             this.titlePanel.PerformLayout();
             this.listsPanel.ResumeLayout(false);
-            this.listsPanel.PerformLayout();
             this.mainPanel.ResumeLayout(false);
             this.listDetailsPanel.ResumeLayout(false);
             this.listDetailsPanel.PerformLayout();

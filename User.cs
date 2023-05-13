@@ -40,6 +40,10 @@ namespace Todo
             userDAO.LoadTaskListsFromDatabase(this);
         }
 
+        public void CreateTaskList(string name, DateTime currentDate)
+        {
+            userDAO.CreateTaskList(name, this, currentDate);
+        }
     }
 
     public class UserDAO
@@ -111,7 +115,39 @@ namespace Todo
             {
                 connection.Close();
             }
+        }
 
+        public void CreateTaskList(string name, User user, DateTime currentDate)
+        {
+            try
+            {
+                connection.Open();
+                MySqlCommand cmd = connection.CreateCommand();
+                cmd.CommandText = "INSERT INTO lists(name, user_id, created_at) VALUES (@name, @userId, @createdAt)";
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@userId", user.UserId);
+                cmd.Parameters.AddWithValue("@createdAt", currentDate);
+     
+
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    TaskList taskList = new TaskList(TaskListDAO.GetId(name, user.UserId), name, user.UserId, currentDate);
+                    user.TaskLists.Add(taskList);
+                } else
+                {
+                    Console.WriteLine("Error: Task list not added.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
