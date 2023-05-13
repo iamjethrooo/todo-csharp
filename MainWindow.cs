@@ -84,6 +84,20 @@ namespace Todo
         private void changeCurrentList_Event(object sender, EventArgs e)
         {
             selectedListLabel.Text = ((RadioButton)sender).Text;
+            // Clear displayed tasks
+            tasksPanel.Controls.Clear();
+
+            // Add new set of tasks
+            List<Task> tasks = user.GetTasksFromList(TaskListDAO.GetId(selectedListLabel.Text, user.UserId));
+            tasks.ForEach(task =>
+            {
+                CheckBox checkBox = CreateTaskButton();
+                checkBox.Text = task.Name;
+                checkBox.Tag = task.Id;
+                checkBox.Checked = task.CompletionDate != null;
+                checkBox.CheckedChanged += new EventHandler(TaskCheckbox_CheckedChanged);
+                tasksPanel.Controls.Add(checkBox);
+            });
         }
 
         public static DialogResult InputBox(string title, string promptText, ref string value)
@@ -122,6 +136,66 @@ namespace Todo
 
             value = textBox.Text;
             return dialogResult;
+        }
+
+        private void addTaskButton_Click(object sender, EventArgs e)
+        {
+            string value = "";
+            if (InputBox("Create new task", "Enter task name:", ref value) == DialogResult.OK && !value.Equals(""))
+            {
+                user.CreateTask(value, TaskListDAO.GetId(selectedListLabel.Text, user.UserId));
+                CheckBox checkBox = CreateTaskButton();
+                checkBox.Text = value;
+                checkBox.Tag = TaskDAO.GetLastInsertedId();
+                checkBox.Checked = false;
+                checkBox.CheckedChanged += new EventHandler(TaskCheckbox_CheckedChanged);
+                tasksPanel.Controls.Add(checkBox);
+            }
+        }
+
+        public void TaskCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkbox = (CheckBox)sender;
+            if (checkbox.Checked)
+            {
+                // Checkbox was checked
+                user.MarkTaskAsCompleted(int.Parse(checkbox.Tag.ToString()));
+            }
+            else
+            {
+                // Checkbox was unchecked
+                user.MarkTaskAsUnfinished(int.Parse(checkbox.Tag.ToString()));
+            }
+        }
+
+        private CheckBox CreateTaskButton()
+        {
+            CheckBox checkBox = new CheckBox();
+            checkBox.FlatAppearance.BorderSize = 0;
+            //checkBox.FlatAppearance.CheckedBackColor = listAll.FlatAppearance.CheckedBackColor;
+            //checkBox.FlatAppearance.MouseOverBackColor = listAll.FlatAppearance.MouseOverBackColor;
+            //checkBox.FlatAppearance.MouseDownBackColor = listAll.FlatAppearance.MouseDownBackColor;
+            checkBox.Appearance = Appearance.Normal;
+            checkBox.ForeColor = Color.White;
+            checkBox.BackColor = Color.FromArgb(42, 42, 42);
+            checkBox.FlatStyle = FlatStyle.Flat;
+            checkBox.Font = new Font("Helvetica", 14, FontStyle.Regular);
+            checkBox.Margin = new Padding(3, 3, 3, 3);
+            checkBox.Padding = new Padding(10, 0, 0, 0);
+            checkBox.Height = 38;
+            checkBox.Width = 758;
+            checkBox.Text = "";
+            // radioButton.CheckedChanged += new System.EventHandler(changeCurrentList_Event);
+            return checkBox;
+        }
+
+        private void taskButton_MouseEnter(object sender, EventArgs e)
+        {
+            ((CheckBox)sender).BackColor = Color.FromArgb(55,55,55);
+        }
+        private void taskButton_MouseLeave(object sender, EventArgs e)
+        {
+            ((CheckBox)sender).BackColor = Color.Empty;
         }
     }
 }

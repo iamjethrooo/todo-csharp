@@ -37,6 +37,8 @@
             this.mainPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.listDetailsPanel = new System.Windows.Forms.Panel();
             this.selectedListLabel = new System.Windows.Forms.Label();
+            this.tasksPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.addTaskButton = new System.Windows.Forms.Button();
             this.sidePanel.SuspendLayout();
             this.titlePanel.SuspendLayout();
             this.listsPanel.SuspendLayout();
@@ -50,6 +52,7 @@
             this.sidePanel.Controls.Add(this.titlePanel);
             this.sidePanel.Controls.Add(this.listsPanel);
             this.sidePanel.Controls.Add(this.newListButton);
+            this.sidePanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.sidePanel.ForeColor = System.Drawing.Color.White;
             this.sidePanel.Location = new System.Drawing.Point(0, 0);
             this.sidePanel.Margin = new System.Windows.Forms.Padding(0);
@@ -88,13 +91,14 @@
             this.listsPanel.Location = new System.Drawing.Point(5, 73);
             this.listsPanel.Margin = new System.Windows.Forms.Padding(5);
             this.listsPanel.Name = "listsPanel";
-            this.listsPanel.Size = new System.Drawing.Size(264, 541);
+            this.listsPanel.Size = new System.Drawing.Size(264, 543);
             this.listsPanel.TabIndex = 1;
             // 
             // listAll
             // 
             this.listAll.Appearance = System.Windows.Forms.Appearance.Button;
             this.listAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.listAll.Checked = true;
             this.listAll.FlatAppearance.BorderSize = 0;
             this.listAll.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.listAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
@@ -118,7 +122,7 @@
             this.newListButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.newListButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.newListButton.Font = new System.Drawing.Font("Helvetica", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newListButton.Location = new System.Drawing.Point(5, 624);
+            this.newListButton.Location = new System.Drawing.Point(5, 626);
             this.newListButton.Margin = new System.Windows.Forms.Padding(5);
             this.newListButton.Name = "newListButton";
             this.newListButton.Size = new System.Drawing.Size(264, 41);
@@ -130,8 +134,11 @@
             // mainPanel
             // 
             this.mainPanel.Controls.Add(this.listDetailsPanel);
+            this.mainPanel.Controls.Add(this.tasksPanel);
+            this.mainPanel.Controls.Add(this.addTaskButton);
             this.mainPanel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.mainPanel.Location = new System.Drawing.Point(277, 0);
+            this.mainPanel.Margin = new System.Windows.Forms.Padding(0);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(787, 682);
             this.mainPanel.TabIndex = 3;
@@ -160,6 +167,33 @@
             this.selectedListLabel.TabIndex = 0;
             this.selectedListLabel.Text = "List Name";
             this.selectedListLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tasksPanel
+            // 
+            this.tasksPanel.Location = new System.Drawing.Point(3, 71);
+            this.tasksPanel.Name = "tasksPanel";
+            this.tasksPanel.Size = new System.Drawing.Size(761, 547);
+            this.tasksPanel.TabIndex = 2;
+            // 
+            // addTaskButton
+            // 
+            this.addTaskButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.addTaskButton.FlatAppearance.BorderSize = 0;
+            this.addTaskButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            this.addTaskButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(57)))), ((int)(((byte)(57)))));
+            this.addTaskButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addTaskButton.Font = new System.Drawing.Font("Helvetica", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addTaskButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(140)))), ((int)(((byte)(222)))));
+            this.addTaskButton.Location = new System.Drawing.Point(5, 626);
+            this.addTaskButton.Margin = new System.Windows.Forms.Padding(5);
+            this.addTaskButton.Name = "addTaskButton";
+            this.addTaskButton.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.addTaskButton.Size = new System.Drawing.Size(759, 41);
+            this.addTaskButton.TabIndex = 3;
+            this.addTaskButton.Text = "Add a task";
+            this.addTaskButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.addTaskButton.UseVisualStyleBackColor = false;
+            this.addTaskButton.Click += new System.EventHandler(this.addTaskButton_Click);
             // 
             // MainWindow
             // 
@@ -193,6 +227,8 @@
         private System.Windows.Forms.FlowLayoutPanel listsPanel;
         private System.Windows.Forms.RadioButton listAll;
         private System.Windows.Forms.Button newListButton;
+        private System.Windows.Forms.FlowLayoutPanel tasksPanel;
+        private System.Windows.Forms.Button addTaskButton;
     }
 }
 
