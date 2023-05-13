@@ -23,6 +23,7 @@ namespace Todo
             this.user = user;
             InitializeComponent();
             addListsToForm(user.TaskLists);
+            listAll.Visible = false;
         }
 
         private void addListsToForm(List<TaskList> taskLists)
