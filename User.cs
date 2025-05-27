@@ -21,6 +21,7 @@ namespace Todo
         public User()
         {
             userDAO = new UserDAO();
+            TaskLists = new List<TaskList>();
         }
 
         public User Login(string username, string password)

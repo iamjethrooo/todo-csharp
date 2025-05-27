@@ -28,23 +28,29 @@ namespace Todo
 
         private void addListsToForm(List<TaskList> taskLists)
         {
-            taskLists.ForEach(taskList =>
+            if (taskLists != null)
             {
-                RadioButton radioButton = new RadioButton();
-                radioButton.FlatAppearance.BorderSize = listAll.FlatAppearance.BorderSize;
-                radioButton.FlatAppearance.CheckedBackColor = listAll.FlatAppearance.CheckedBackColor;
-                radioButton.FlatAppearance.MouseOverBackColor = listAll.FlatAppearance.MouseOverBackColor;
-                radioButton.FlatAppearance.MouseDownBackColor = listAll.FlatAppearance.MouseDownBackColor;
-                radioButton.Appearance = listAll.Appearance;
-                radioButton.FlatStyle = listAll.FlatStyle;
-                radioButton.Font = listAll.Font;
-                radioButton.Margin = listAll.Margin;
-                radioButton.Height = listAll.Height;
-                radioButton.Width = 268;
-                radioButton.Text = taskList.Name;
-                radioButton.CheckedChanged += new System.EventHandler(changeCurrentList_Event);
-                listsPanel.Controls.Add(radioButton);
-            });
+                taskLists.ForEach(taskList =>
+                {
+                    if (taskList != null)
+                    {
+                        RadioButton radioButton = new RadioButton();
+                        radioButton.FlatAppearance.BorderSize = listAll.FlatAppearance.BorderSize;
+                        radioButton.FlatAppearance.CheckedBackColor = listAll.FlatAppearance.CheckedBackColor;
+                        radioButton.FlatAppearance.MouseOverBackColor = listAll.FlatAppearance.MouseOverBackColor;
+                        radioButton.FlatAppearance.MouseDownBackColor = listAll.FlatAppearance.MouseDownBackColor;
+                        radioButton.Appearance = listAll.Appearance;
+                        radioButton.FlatStyle = listAll.FlatStyle;
+                        radioButton.Font = listAll.Font;
+                        radioButton.Margin = listAll.Margin;
+                        radioButton.Height = listAll.Height;
+                        radioButton.Width = 268;
+                        radioButton.Text = taskList.Name;
+                        radioButton.CheckedChanged += new System.EventHandler(changeCurrentList_Event);
+                        listsPanel.Controls.Add(radioButton);
+                    }
+                });
+            }
         }
 
         private void listAll_CheckedChanged(object sender, EventArgs e)

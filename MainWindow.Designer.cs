@@ -163,9 +163,8 @@
             this.selectedListLabel.ForeColor = System.Drawing.Color.White;
             this.selectedListLabel.Location = new System.Drawing.Point(3, 7);
             this.selectedListLabel.Name = "selectedListLabel";
-            this.selectedListLabel.Size = new System.Drawing.Size(196, 45);
+            this.selectedListLabel.Size = new System.Drawing.Size(0, 45);
             this.selectedListLabel.TabIndex = 0;
-            this.selectedListLabel.Text = "List Name";
             this.selectedListLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tasksPanel
